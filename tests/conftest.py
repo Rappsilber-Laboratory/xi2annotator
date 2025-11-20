@@ -23,7 +23,7 @@ import them (pytest will automatically discover them).
 
 import pytest
 
-from xisearch_common.config import Config, Crosslinker, Enzyme, DigestionConfig
+from xicommon.config import Config, Crosslinker, Enzyme, DigestionConfig
 
 
 @pytest.fixture()

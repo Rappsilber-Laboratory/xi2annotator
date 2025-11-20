@@ -17,15 +17,15 @@
 
 import traceback
 from flask import jsonify
-from xisearch_common.config import Crosslinker, Modification, ModificationConfig, Loss, \
+from xicommon.config import Crosslinker, Modification, ModificationConfig, Loss, \
     FragmentationConfig, Config
-from xisearch_common.mock_context import MockContext
-from xisearch_common.spectra_reader import Spectrum
-from xisearch_common.fragment_peptides import fragment_crosslinked_peptide_pair, \
+from xicommon.mock_context import MockContext
+from xicommon.spectra_reader import Spectrum
+from xicommon.fragment_peptides import fragment_crosslinked_peptide_pair, \
     fragment_linear_peptide, fragment_noncovalent_peptide_pair
-from xisearch_common.fragmentation import spread_charges, include_losses
-from xisearch_common.filters import IsotopeDetector
-from xisearch_common import const
+from xicommon.fragmentation import spread_charges, include_losses
+from xicommon.filters import IsotopeDetector
+from xicommon import const
 import numpy as np
 import re
 import os

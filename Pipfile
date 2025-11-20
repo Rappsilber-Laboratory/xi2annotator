@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-xicommon = {editable = true, path = "../xisearch-common"}
+xicommon = "*"
 flask = {extras = ["async"], version = "==2.3.3"}
 flask-cors = "*"
 waitress = "*"

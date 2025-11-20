@@ -14,7 +14,7 @@ authors = [
 ]
 dependencies = [
     # Common library
-    "xisearch-common>=1.0.0,<2.0.0",
+    "xicommon>=1.0.0,<2.0.0",
 
     # Web framework
     "flask[async]==2.3.3",
