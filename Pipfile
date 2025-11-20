@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+xicommon = {editable = true, path = "../xisearch-common"}
+flask = {extras = ["async"], version = "==2.3.3"}
+flask-cors = "*"
+waitress = "*"
+python-dotenv = "*"
+
+[dev-packages]
+recursive-diff = "*"
+pytest = ">=3.6.4"
+pytest-flask = "==1.3.0"
+pytest-cov = "*"
+pytest-flake8 = ">=1.1.0"
+flake8 = "==4.0.1"
+build = "*"
+
+[requires]
+python_version = "3.10"

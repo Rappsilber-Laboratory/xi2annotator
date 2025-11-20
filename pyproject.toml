@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xisearch-annotator"
+version = "1.0.0"
+description = "Mass spectrometry spectrum annotation web service"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "AGPL-3.0-or-later"}
+authors = [
+    {name = "Rappsilber Laboratory"}
+]
+dependencies = [
+    # Common library
+    "xisearch-common>=1.0.0,<2.0.0",
+
+    # Web framework
+    "flask[async]==2.3.3",
+    "flask-cors",
+    "waitress",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=3.6.4",
+    "pytest-flask==1.3.0",
+    "pytest-cov",
+    "pytest-flake8>=1.1.0",
+    "flake8==4.0.1",
+    "build",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Rappsilber-Laboratory/xisearch-annotator"
+"Source" = "https://github.com/Rappsilber-Laboratory/xisearch-annotator"
+
+[project.scripts]
+xi2annotator = "xi2annotator.__main__:main"
+
+[tool.setuptools]
+packages = ["xi2annotator"]
+include-package-data = true
