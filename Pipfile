@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-xicommon = "*"
+xicommon = ">=1.0.0,<2.0.0"
 flask = {extras = ["async"], version = "==2.3.3"}
 flask-cors = "*"
 waitress = "*"
