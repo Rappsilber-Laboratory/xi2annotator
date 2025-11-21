@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "xisearch-annotator"
-version = "1.0.0"
+version = "1.0.1"
 description = "Mass spectrometry spectrum annotation web service"
 readme = "README.md"
 requires-python = ">=3.8"
