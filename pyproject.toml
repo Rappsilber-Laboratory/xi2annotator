@@ -3,7 +3,7 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "xisearch-annotator"
+name = "xi2annotator"
 version = "1.0.1"
 description = "Mass spectrometry spectrum annotation web service"
 readme = "README.md"
