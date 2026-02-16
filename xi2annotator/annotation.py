@@ -30,6 +30,9 @@ import numpy as np
 import re
 import os
 
+# Sentinel value for missing crosslinkerID (distinct from None which means explicit no-crosslink)
+_MISSING = object()
+
 
 def annotate_request(json_request):
     """
@@ -65,22 +68,25 @@ def annotate_request(json_request):
         crosslinker = None
         if len(config.crosslinker) > 0:
             # Check if crosslinkerID is explicitly set to None (meaning no crosslink)
-            # vs missing (KeyError, meaning use fallback for xi1 format)
-            crosslinker_id_value = json_request['annotation'].get('crosslinkerID', 'KEY_MISSING')
+            # vs missing (meaning use fallback for xi1 format)
+            crosslinker_id_value = json_request['annotation'].get('crosslinkerID', _MISSING)
             
             # If crosslinkerID is explicitly None, treat as non-crosslinked
             if crosslinker_id_value is None:
                 is_crosslinked = False
-            else:
+            elif crosslinker_id_value is _MISSING:
+                # Missing crosslinkerID - use xi1 fallback logic
                 is_crosslinked = True
-                try:
-                    crosslinker_idx = json_request['annotation']['crosslinkerID']
-                except KeyError:
-                    if len(config.crosslinker) == 1:
-                        crosslinker_idx = 0
-                    else:
-                        raise ValueError(
-                            "More than 1 crosslinker in config without defined crosslinkerID!")
+                if len(config.crosslinker) == 1:
+                    crosslinker_idx = 0
+                else:
+                    raise ValueError(
+                        "More than 1 crosslinker in config without defined crosslinkerID!")
+                crosslinker = config.crosslinker[crosslinker_idx]
+            else:
+                # crosslinkerID is present and not None
+                is_crosslinked = True
+                crosslinker_idx = crosslinker_id_value
                 crosslinker = config.crosslinker[crosslinker_idx]
 
         # create peptide database and set up Context
