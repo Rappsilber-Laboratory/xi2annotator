@@ -63,7 +63,7 @@ def annotate_request(json_request):
         # set crosslinker
         is_crosslinked = False
         crosslinker = None
-        if len(config.crosslinker) > 0:
+        if (len(config.crosslinker) > 0) & (json_request['annotation']['crosslinkerID'] is not None):
             is_crosslinked = True
             try:
                 crosslinker_idx = json_request['annotation']['crosslinkerID']
@@ -78,7 +78,7 @@ def annotate_request(json_request):
         # create peptide database and set up Context
         ctx = MockContext(config)
         # xi2 style annotation
-        if (len(config.crosslinker) > 0) & (json_request['annotation']['crosslinkerID'] is not None):
+        if 'base_sequence' in json_request['Peptides'][0].keys():
             base_seqs = [p['base_sequence'].encode('ascii') for p in json_request['Peptides']]
             mod_ids = [p['modification_ids'] for p in json_request['Peptides']]
             mod_pos = [p['modification_positions'] for p in json_request['Peptides']]
