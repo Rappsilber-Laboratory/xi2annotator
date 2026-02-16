@@ -2807,6 +2807,60 @@ def test_annotate_synthetic_noncovalent_xi2_format(client):
     assert res.json['annotation']['modifications'] == exp_mods
 
 
+def test_annotate_noncovalent_with_crosslinker_list_no_crosslinkerID(client):
+    """
+    Test that noncovalent peptides can be annotated when there's a non-empty crosslinker
+    list but no crosslinkerID field. This scenario should be handled gracefully without
+    crashing (regression test for the fix that checks crosslinkerID is not None).
+    """
+    url = url_for('xi2annotator.annotate')
+
+    # Load request with synthetic spectrum for LAsdaK TSR as noncovalently associated peptides
+    # but with a crosslinker list defined (though not used since crosslinkerID is missing)
+    current_dir = os.path.dirname(__file__)
+    json_file = os.path.join(current_dir, '../fixtures', 'annotation_requests',
+                             'xi2_format_LAsdaK-TSR_z3_NAP_no_crosslinkerID.json')
+    with open(json_file) as f:
+        request = json.load(f)
+
+    # request annotation
+    res = client.post(url, json=request)
+    assert res._status_code == 200
+
+    check_unchanged_values(res.json, request, 'xi2')
+    check_result(res.json, exp_noncov_synthetic)
+    # check that the modifications have been written out
+    exp_mods = [{'aminoAcids': ['K'], 'id': 'sda', 'mass': 82.04186484}]
+    assert res.json['annotation']['modifications'] == exp_mods
+
+
+def test_annotate_noncovalent_with_crosslinker_list_crosslinkerID_None(client):
+    """
+    Test that noncovalent peptides can be annotated when there's a non-empty crosslinker
+    list but crosslinkerID is explicitly set to None. This scenario should be handled
+    gracefully without crashing (regression test for the fix that checks crosslinkerID is not None).
+    """
+    url = url_for('xi2annotator.annotate')
+
+    # Load request with synthetic spectrum for LAsdaK TSR as noncovalently associated peptides
+    # but with a crosslinker list defined and crosslinkerID explicitly set to None
+    current_dir = os.path.dirname(__file__)
+    json_file = os.path.join(current_dir, '../fixtures', 'annotation_requests',
+                             'xi2_format_LAsdaK-TSR_z3_NAP_crosslinkerID_None.json')
+    with open(json_file) as f:
+        request = json.load(f)
+
+    # request annotation
+    res = client.post(url, json=request)
+    assert res._status_code == 200
+
+    check_unchanged_values(res.json, request, 'xi2')
+    check_result(res.json, exp_noncov_synthetic)
+    # check that the modifications have been written out
+    exp_mods = [{'aminoAcids': ['K'], 'id': 'sda', 'mass': 82.04186484}]
+    assert res.json['annotation']['modifications'] == exp_mods
+
+
 def test_annotate_with_composition_modification(client):
     """
     Test that the annotator reports the modification mass when chemical composition was defined.
