@@ -63,7 +63,7 @@ def annotate_request(json_request):
         # set crosslinker
         is_crosslinked = False
         crosslinker = None
-        if (len(config.crosslinker) > 0) & (json_request['annotation'].get('crosslinkerID') is not None):
+        if (len(config.crosslinker) > 0) and (json_request['annotation'].get('crosslinkerID') is not None):
             is_crosslinked = True
             try:
                 crosslinker_idx = json_request['annotation']['crosslinkerID']
