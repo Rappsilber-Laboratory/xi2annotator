@@ -63,17 +63,25 @@ def annotate_request(json_request):
         # set crosslinker
         is_crosslinked = False
         crosslinker = None
-        if (len(config.crosslinker) > 0) and (json_request['annotation'].get('crosslinkerID') is not None):
-            is_crosslinked = True
-            try:
-                crosslinker_idx = json_request['annotation']['crosslinkerID']
-            except KeyError:
-                if len(config.crosslinker) == 1:
-                    crosslinker_idx = 0
-                else:
-                    raise ValueError(
-                        "More than 1 crosslinker in config without defined crosslinkerID!")
-            crosslinker = config.crosslinker[crosslinker_idx]
+        if len(config.crosslinker) > 0:
+            # Check if crosslinkerID is explicitly set to None (meaning no crosslink)
+            # vs missing (KeyError, meaning use fallback for xi1 format)
+            crosslinker_id_value = json_request['annotation'].get('crosslinkerID', 'KEY_MISSING')
+            
+            # If crosslinkerID is explicitly None, treat as non-crosslinked
+            if crosslinker_id_value is None:
+                is_crosslinked = False
+            else:
+                is_crosslinked = True
+                try:
+                    crosslinker_idx = json_request['annotation']['crosslinkerID']
+                except KeyError:
+                    if len(config.crosslinker) == 1:
+                        crosslinker_idx = 0
+                    else:
+                        raise ValueError(
+                            "More than 1 crosslinker in config without defined crosslinkerID!")
+                crosslinker = config.crosslinker[crosslinker_idx]
 
         # create peptide database and set up Context
         ctx = MockContext(config)
