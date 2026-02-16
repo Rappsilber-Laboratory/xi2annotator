@@ -87,6 +87,16 @@ def annotate_request(json_request):
                 # crosslinkerID is present and not None
                 is_crosslinked = True
                 crosslinker_idx = crosslinker_id_value
+                
+                # Validate crosslinker_idx
+                if not isinstance(crosslinker_idx, int):
+                    raise TypeError(
+                        f"crosslinkerID must be an integer, got {type(crosslinker_idx).__name__}")
+                if crosslinker_idx < 0 or crosslinker_idx >= len(config.crosslinker):
+                    raise ValueError(
+                        f"crosslinkerID {crosslinker_idx} is out of bounds. "
+                        f"Valid range is 0 to {len(config.crosslinker) - 1}")
+                
                 crosslinker = config.crosslinker[crosslinker_idx]
 
         # create peptide database and set up Context
