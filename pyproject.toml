@@ -31,7 +31,7 @@ dev = [
     "pytest-flake8>=1.1.0",
     "flake8==4.0.1",
     "build",
-    "recursive_diff",
+    "recursive-diff",
 ]
 
 [project.urls]
