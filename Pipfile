@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 xicommon = ">=1.0.0,<2.0.0"
-flask = {extras = ["async"], version = "==2.3.3"}
+flask = {extras = ["async"], version = "*"}
 flask-cors = "*"
 waitress = "*"
 python-dotenv = "*"
