@@ -16,6 +16,7 @@
 # USA
 
 from xi2annotator import create_app
+from xi2annotator.annotation import annotate_request
 import pytest
 from flask import url_for
 import os
@@ -2852,3 +2853,7 @@ def test_annotate_with_composition_modification(client):
     # check that the modifications has been written out with a mass
     exp_mods = [{'aminoAcids': ['M'], 'id': 'ox', 'mass': 15.99491461956}]
     assert res.json['annotation']['modifications'] == exp_mods
+
+    # verify that calling annotate_request directly gives the same result as via Flask
+    direct_resp = annotate_request(copy.deepcopy(request))
+    recursive_eq(res.json, direct_resp, abs_tol=1e-8, rel_tol=1e-6)
