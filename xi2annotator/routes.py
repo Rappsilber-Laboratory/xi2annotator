@@ -16,6 +16,7 @@
 # USA
 
 from flask import request
+from flask import jsonify
 from xi2annotator import bp
 from xi2annotator.annotation import annotate_request
 
@@ -27,4 +28,4 @@ def annotate():
     # get the content of the json request
     content = request.get_json()
 
-    return annotate_request(content)
+    return jsonify(annotate_request(content))

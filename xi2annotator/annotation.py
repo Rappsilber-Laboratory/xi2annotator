@@ -16,7 +16,6 @@
 # USA
 
 import traceback
-from flask import jsonify
 from xicommon.config import Crosslinker, Modification, ModificationConfig, Loss, \
     FragmentationConfig, Config
 from xicommon.mock_context import MockContext
@@ -338,11 +337,11 @@ def annotate_request(json_request):
         # ToDo: the version should come from a central place
         json_request['annotation']['xiVersion'] = const.VERSION
 
-        return jsonify(json_request)
+        return json_request
     except Exception as e:
         debug_value = os.environ.get("XI2ANNOTATOR_DEBUG", "false")
         if debug_value.lower() != "false" and debug_value != "0":
-            return jsonify({'error': str(e), "stacktrace": traceback.format_exc()}), 400
+            return {'error': str(e), "stacktrace": traceback.format_exc()}, 400
         raise e
 
 
