@@ -17,7 +17,7 @@ dependencies = [
     "xicommon>=1.0.0,<2.0.0",
 
     # Web framework
-    "flask[async]==2.3.3",
+    "flask[async]>=3.1.3,<4",
     "flask-cors",
     "waitress",
     "python-dotenv",
