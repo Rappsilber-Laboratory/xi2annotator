@@ -11,8 +11,6 @@ waitress = "*"
 python-dotenv = ">=1.2.2"
 # security floors for transitive dependencies (remove once parents require them)
 werkzeug = ">=3.1.9"  # GHSA-g6x2-hccm-hh4m et al., via flask
-lxml = ">=6.1.0"  # GHSA-vfmq-68hx-4jfw, via xicommon
-pygments = ">=2.20.0"  # GHSA-5239-wwwm-4pmq, via xicommon/pytest
 
 [dev-packages]
 recursive-diff = "*"
@@ -23,5 +21,3 @@ pytest-flake8 = ">=1.1.0"
 flake8 = ">=6.0.0"
 build = "*"
 
-[requires]
-python_version = "3.10"
