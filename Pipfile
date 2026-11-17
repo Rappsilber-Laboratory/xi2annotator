@@ -4,13 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-xicommon = ">=1.0.0,<2.0.0"
 flask = {extras = ["async"], version = ">=3.1.3,<3.2"}
 flask-cors = "*"
 waitress = "*"
 python-dotenv = ">=1.2.2"
 # security floors for transitive dependencies (remove once parents require them)
 werkzeug = ">=3.1.9"  # GHSA-g6x2-hccm-hh4m et al., via flask
+xicommon = "<2,>=1.0.15"
 
 [dev-packages]
 recursive-diff = "*"
@@ -20,4 +20,3 @@ pytest-cov = "*"
 pytest-flake8 = ">=1.1.0"
 flake8 = ">=6.0.0"
 build = "*"
-
